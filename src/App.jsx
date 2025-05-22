@@ -5,16 +5,14 @@ import { nanoid } from "nanoid";
 export default function App() {
   const [cards, setCards] = useState([]);
 
-  let localData = JSON.parse(localStorage.getItem('Cards')) ?? []
+  let localData = JSON.parse(localStorage.getItem("Cards")) ?? [];
 
-  // 1st tym rerender p phle agr user ka data already hoga toh vo phle hi sync krlega 
-  useEffect(()=>{
-    setCards(localData)
-  } , []) // enpty arr means on first tym mounting
- 
-  
+  // 1st tym rerender p phle agr user ka data already hoga toh vo phle hi sync krlega
+  useEffect(() => {
+    setCards(localData);
+  }, []); // enpty arr means on first tym mounting
 
-  console.log("This is my" ,localData)
+  console.log("This is my", localData);
 
   // let isOpen = false;
   const [isOpen, setIsOpen] = useState(false); // state var
@@ -28,16 +26,16 @@ export default function App() {
     setIsOpen(false);
   }
 
-  function handleChecked(task_id){
-    setCards(prev=>prev.filter(({id}) => id != task_id));
-    localData = localData.filter(({id}) => id != task_id);
-    localStorage.setItem('Cards' , JSON.stringify(localData))
+  function handleChecked(task_id) {
+    setCards((prev) => prev.filter(({ id }) => id != task_id));
+    localData = localData.filter(({ id }) => id != task_id);
+    localStorage.setItem("Cards", JSON.stringify(localData));
   }
 
   function handleSubmit(cardData) {
-      setCards(prev=>[...prev,cardData])
-      localData.push(cardData)
-      localStorage.setItem("Cards" , JSON.stringify(localData))
+    setCards((prev) => [...prev, cardData]);
+    localData.push(cardData);
+    localStorage.setItem("Cards", JSON.stringify(localData));
   }
 
   // arr s map krna
@@ -72,12 +70,12 @@ export default function App() {
           alt="todo-logo"
         />
         <h1 className="left-0 font-bold text-2xl w-full text-center ">
-          Todo List
+          Todo List App
         </h1>
       </header>
 
       <main className="flex flex-col h-[92%]">
-        
+
         <div className="w-full h-fit border-3 border-purple-700">
           <CarouselTemplate/>
         </div>
@@ -102,15 +100,25 @@ export default function App() {
       </main>
     </div>
   );
+
+  // return (
+  //   <div className="flex w-screen h-screen items-center justify-center">
+  //     <div className="bg-red-400 sm:bg-blue-400 md:bg-green-400 text-2xl sm:text-3xl md:text-5xl lg:text-7xl xl:text-9xl w-full text-center text-nowrap">Hello there its prince</div>
+  //   </div>
+  // );
 }
 
-function TodoCard({ title, description, index , task_id, handleChecked}) {
+function TodoCard({ title, description, index, task_id, handleChecked }) {
   return (
     <div className="flex flex-col gap-4 p-4 border-3 border-purple-700 rounded-sm  bg-purple-200 ">
       <div className="flex justify-between items-center w-full">
         <span className=" text-purple-900 font-medium">Task: {index}</span>
         <span>{title}</span>
-        <input type="checkbox" checked={false} onChange={(()=>handleChecked(task_id))}/>
+        <input
+          type="checkbox"
+          checked={false}
+          onChange={() => handleChecked(task_id)}
+        />
       </div>
       <textarea
         disabled
@@ -134,10 +142,10 @@ function Todofrom({ handleClose, handleSubmit }) {
         onClick={(e) => e.stopPropagation()}
         onSubmit={(e) => {
           e.preventDefault();
-          handleSubmit({id: nanoid(), title, description });
+          handleSubmit({ id: nanoid(), title, description });
           handleClose();
         }}
-        className="bg-white h-[52%] flex flex-col gap-4 p-4 py-2 w-[30%] rounded-lg "
+        className="bg-white h-fit flex flex-col gap-4 p-4  w-[85%] sm:w-[60%] md:w-[40%] lg:w-[30%] rounded-lg "
       >
         <label htmlFor="mai hu title ki id" className="font-bold">
           Title:
@@ -172,10 +180,11 @@ function Todofrom({ handleClose, handleSubmit }) {
           >
             Submit
           </button>
-          <button 
-          type="button"  // isliy yha button ka type button h
-          onClick={handleClose}
-           className="p-1 bg-purple-500 text-white px-2 rounded-md cursor-pointer">
+          <button
+            type="button" // isliy yha button ka type button h
+            onClick={handleClose}
+            className="p-1 bg-purple-500 text-white px-2 rounded-md cursor-pointer"
+          >
             Cancel
           </button>
         </div>
