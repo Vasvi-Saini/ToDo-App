@@ -33,6 +33,10 @@ export default function App() {
   }
 
   function handleSubmit(cardData) {
+    if(cardData.title.trim() == '' || cardData.description.trim() == ''){
+        alert("Nothing Entered...")
+        return
+    } 
     setCards((prev) => [...prev, cardData]);
     localData.push(cardData);
     localStorage.setItem("Cards", JSON.stringify(localData));
@@ -153,7 +157,7 @@ function Todofrom({ handleClose, handleSubmit }) {
         <input
           id="mai hu title ki id"
           type="text"
-          className="rounded-md border p-1 "
+          className="rounded-md border p-1 px-2"
           placeholder="Enter title here..."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -165,7 +169,7 @@ function Todofrom({ handleClose, handleSubmit }) {
             id="m hu desc id"
             rows="8"
             cols="2"
-            className="rounded-md border p-1 "
+            className="rounded-md border p-1 px-2 "
             placeholder="Enter description here..."
             value={description}
             onChange={(e) => setDescription(e.target.value)}
